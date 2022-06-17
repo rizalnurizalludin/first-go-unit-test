@@ -21,6 +21,47 @@ func BenchmarkHelloWordNurizalludin(b *testing.B) {
 	}
 }
 
+func BenchmarkHelloWordSub(b *testing.B) {
+	b.Run("Rizal", func(b *testing.B){
+		for i:=0 ; i<b.N ; i++{
+			HelloWord("Rizal")
+		}
+	})
+	b.Run("Nurizalludin",func(b *testing.B) {
+		for i:=0; i<b.N ; i++{
+			HelloWord("Nurizalludin")
+		}
+	})
+}
+
+func BenchmarkTable(b *testing.B) {
+	benchmarks :=[]struct{
+		name string
+		request string
+	}{
+		{
+			name:"Rizal",
+			request: "Rizal",
+		},
+		{
+			name: "Nurizalludin",
+			request: "Nurizalludin",
+		},
+		{
+			name: "Ganteng",
+			request: "Ganteng",
+		},
+	}
+
+	for _,benchmark:=range benchmarks{
+		b.Run(benchmark.name,func(b *testing.B) {
+			for i:=0 ; i<b.N ; i++{
+				HelloWord(benchmark.name)
+			}
+		})
+	}
+}
+
 func TestSubTest(t *testing.T) {
 	t.Run("Rizal", func(t *testing.T) {
 		result := HelloWord("Rizal")
